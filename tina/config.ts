@@ -1,6 +1,5 @@
 import { defineConfig } from "tinacms";
 
-// Your hosting provider likely exposes this as an environment variable
 const branch =
   process.env.HEAD ||
   process.env.VERCEL_GIT_COMMIT_REF ||
@@ -8,35 +7,26 @@ const branch =
 
 export default defineConfig({
   branch,
-
-  // Get this from tina.io
   clientId: process.env.TINA_PUBLIC_CLIENT_ID || "",
-  // Get this from tina.io
   token: process.env.TINA_TOKEN || "",
 
   build: {
     outputFolder: "admin",
     publicFolder: "public",
   },
-  // Uncomment to allow cross-origin requests from non-localhost origins
-  // during local development (e.g. GitHub Codespaces, Gitpod, Docker).
-  // Use 'private' to allow all private-network IPs (WSL2, Docker, etc.)
-  // server: {
-  //   allowedOrigins: ['https://your-codespace.github.dev'],
-  // },
   media: {
     tina: {
       mediaRoot: "",
       publicFolder: "public",
     },
   },
-  // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/r/content-modelling-collections/
   schema: {
     collections: [
       {
         name: "post",
         label: "Posts",
-        path: "content/posts",
+        path: "src/content/posts",
+        format: "mdx",
         fields: [
           {
             type: "string",
@@ -44,6 +34,29 @@ export default defineConfig({
             label: "Title",
             isTitle: true,
             required: true,
+          },
+          {
+            type: "string",
+            name: "description",
+            label: "Description",
+            ui: { component: "textarea" },
+          },
+          {
+            type: "datetime",
+            name: "pubDate",
+            label: "Publish Date",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "tags",
+            label: "Tags",
+            list: true,
+          },
+          {
+            type: "image",
+            name: "heroImage",
+            label: "Hero Image",
           },
           {
             type: "rich-text",

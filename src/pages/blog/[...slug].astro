@@ -1,20 +1,243 @@
 ---
-import { type CollectionEntry, getCollection, render } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
+import { getCollection } from 'astro:content';
+import Nav from '../../components/Nav.astro';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: post,
-	}));
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
 }
-type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
-const { Content } = await render(post);
+const { Content } = await post.render();
 ---
 
-<BlogPost {...post.data}>
-	<Content />
-</BlogPost>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{post.data.title} — Luke Oliver Rall</title>
+    <meta name="description" content={post.data.description || ''} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background: #05050a;
+        color: #f0f0f0;
+        min-height: 100vh;
+      }
+
+      .post-wrapper {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 8rem 2rem 6rem;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: rgba(240,240,240,0.4);
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 500;
+        margin-bottom: 3rem;
+        transition: color 0.2s ease;
+      }
+
+      .back-link:hover { color: #e63946; }
+
+      .post-meta {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .post-date {
+        font-size: 0.85rem;
+        color: rgba(240,240,240,0.4);
+      }
+
+      .post-tags {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .tag {
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #e63946;
+        background: rgba(230,57,70,0.1);
+        border: 1px solid rgba(230,57,70,0.2);
+        padding: 0.2rem 0.6rem;
+        border-radius: 100px;
+      }
+
+      .post-title {
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.15;
+        margin-bottom: 1rem;
+      }
+
+      .post-description {
+        font-size: 1.15rem;
+        color: rgba(240,240,240,0.5);
+        line-height: 1.6;
+        margin-bottom: 3rem;
+        padding-bottom: 3rem;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+      }
+
+      .hero-image {
+        width: 100%;
+        border-radius: 12px;
+        margin-bottom: 3rem;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+      }
+
+      .post-body {
+        font-size: 1.05rem;
+        line-height: 1.8;
+        color: rgba(240,240,240,0.85);
+      }
+
+      .post-body h1,
+      .post-body h2,
+      .post-body h3 {
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        margin: 2.5rem 0 1rem;
+        color: #f0f0f0;
+      }
+
+      .post-body h2 { font-size: 1.5rem; }
+      .post-body h3 { font-size: 1.2rem; }
+
+      .post-body p { margin-bottom: 1.5rem; }
+
+      .post-body a {
+        color: #e63946;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .post-body ul, .post-body ol {
+        margin: 0 0 1.5rem 1.5rem;
+      }
+
+      .post-body li { margin-bottom: 0.5rem; }
+
+      .post-body blockquote {
+        border-left: 3px solid #e63946;
+        margin: 2rem 0;
+        padding: 1rem 1.5rem;
+        background: rgba(230,57,70,0.05);
+        border-radius: 0 8px 8px 0;
+        color: rgba(240,240,240,0.7);
+        font-style: italic;
+      }
+
+      .post-body code {
+        background: rgba(255,255,255,0.08);
+        padding: 0.2em 0.4em;
+        border-radius: 4px;
+        font-size: 0.9em;
+        font-family: monospace;
+      }
+
+      .post-body pre {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 10px;
+        padding: 1.5rem;
+        overflow-x: auto;
+        margin-bottom: 1.5rem;
+      }
+
+      .post-body pre code {
+        background: none;
+        padding: 0;
+      }
+
+      .post-body img {
+        width: 100%;
+        border-radius: 10px;
+        margin: 1.5rem 0;
+      }
+
+      .post-footer {
+        margin-top: 4rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255,255,255,0.07);
+        text-align: center;
+      }
+
+      .post-footer a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: #e63946;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: gap 0.2s ease;
+      }
+
+      .post-footer a:hover { gap: 0.7rem; }
+    </style>
+  </head>
+  <body>
+    <Nav />
+
+    <article class="post-wrapper">
+      <a class="back-link" href="/blog">← Back to Blog</a>
+
+      <div class="post-meta">
+        <span class="post-date">
+          {new Date(post.data.pubDate).toLocaleDateString('en-US', {
+            year: 'numeric', month: 'long', day: 'numeric'
+          })}
+        </span>
+        {post.data.tags && (
+          <div class="post-tags">
+            {post.data.tags.map((tag: string) => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <h1 class="post-title">{post.data.title}</h1>
+
+      {post.data.description && (
+        <p class="post-description">{post.data.description}</p>
+      )}
+
+      {post.data.heroImage && (
+        <img class="hero-image" src={post.data.heroImage} alt={post.data.title} />
+      )}
+
+      <div class="post-body">
+        <Content />
+      </div>
+
+      <div class="post-footer">
+        <a href="/blog">← Back to all posts</a>
+      </div>
+    </article>
+  </body>
+</html>
