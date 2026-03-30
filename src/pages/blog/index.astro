@@ -173,7 +173,7 @@ const posts = (await getCollection('posts')).sort(
         </div>
       ) : (
         posts.map((post) => (
-          <a class="post-card" href={`/blog/${post.slug}`}>
+          <a class="post-card" href={`/blog/${post.id}`}>
             <div class="post-meta">
               <span class="post-date">
                 {new Date(post.data.pubDate).toLocaleDateString('en-US', {
