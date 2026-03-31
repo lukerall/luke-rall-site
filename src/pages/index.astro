@@ -2,6 +2,7 @@
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
 import About from '../components/About.astro';
+import Skills from '../components/Skills.astro';
 import Ventures from '../components/Ventures.astro';
 import Media from '../components/Media.astro';
 import Newsletter from '../components/Newsletter.astro';
@@ -15,16 +16,29 @@ import '../styles/landing.css';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luke Oliver Rall — Entrepreneur · Founder · Builder</title>
-    <meta name="description" content="Luke Oliver Rall — 21-year-old South African entrepreneur, founder of Rall Media Group and co-founder of Pinnacle Creatives.">
+    <meta name="description" content="Born to Build *.* | 21-year-old founder building at the intersection of media, tech & business. South Africa → USA 2026">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Luke Oliver Rall — Entrepreneur · Founder · Builder" />
+    <meta property="og:description" content="Born to Build *.* | 21-year-old founder building at the intersection of media, tech & business. South Africa → USA 2026" />
+    <meta property="og:url" content="https://lukeoliverrall.com" />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Luke Oliver Rall — Entrepreneur · Founder · Builder" />
+    <meta name="twitter:description" content="Born to Build *.* | 21-year-old founder building at the intersection of media, tech & business. South Africa → USA 2026" />
+    <meta name="twitter:site" content="@LukeOliverRall" />
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" href="/favicon.ico">
   </head>
   <body>
     <div class="glow" id="glow"></div>
     <Nav />
     <Hero />
     <About />
+    <Skills />
     <Ventures />
     <Media />
     <Newsletter />
@@ -35,16 +49,18 @@ import '../styles/landing.css';
       window.addEventListener('load', () => {
         const io = new IntersectionObserver(entries => {
           entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-        }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+        }, { threshold: 0.10, rootMargin: '0px 0px -20px 0px' });
         document.querySelectorAll('.reveal').forEach(el => io.observe(el));
       });
 
-      // Glow cursor
-      const glow = document.getElementById('glow');
-      let mx = 0, my = 0, gx = 0, gy = 0;
-      document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; glow.classList.add('on'); });
-      document.addEventListener('mouseleave', () => glow.classList.remove('on'));
-      (function loop() { gx += (mx - gx) * 0.07; gy += (my - gy) * 0.07; glow.style.left = gx + 'px'; glow.style.top = gy + 'px'; requestAnimationFrame(loop); })();
+      // Glow cursor (desktop only)
+      if (window.matchMedia('(hover: hover)').matches) {
+        const glow = document.getElementById('glow');
+        let mx = 0, my = 0, gx = 0, gy = 0;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; glow.classList.add('on'); });
+        document.addEventListener('mouseleave', () => glow.classList.remove('on'));
+        (function loop() { gx += (mx - gx) * 0.07; gy += (my - gy) * 0.07; glow.style.left = gx + 'px'; glow.style.top = gy + 'px'; requestAnimationFrame(loop); })();
+      }
     </script>
   </body>
 </html>

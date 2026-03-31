@@ -1,22 +1,66 @@
 <section class="hero" id="top">
   <div class="stars" id="stars"></div>
   <div class="particles" id="particles"></div>
-  <div class="hero-content">
-    <div class="hero-rocket">
-      <img src="/rocket.png" alt="Rocket" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="rocket-fallback" style="display:none">🚀</div>
+
+  <div class="hero-inner">
+    <!-- Text side -->
+    <div class="hero-content">
+      <div class="hero-eyebrow">Entrepreneur · Founder · Builder</div>
+      <h1 class="hero-name">Luke Oliver<br><em>Rall</em></h1>
+      <p class="hero-tagline">Born to Build <em>*.*</em></p>
+      <p class="hero-sub">21-year-old South African entrepreneur building companies at the intersection of media, tech &amp; business. Durban born. Moving to the USA in 2026.</p>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num">2</span>
+          <span class="hero-stat-lbl">Companies</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">21</span>
+          <span class="hero-stat-lbl">Years Old</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num hero-stat-flags">🇿🇦→🇺🇸</span>
+          <span class="hero-stat-lbl">2026</span>
+        </div>
+      </div>
+
+      <div class="hero-cta">
+        <a href="#ventures" class="btn btn-red">
+          Explore My Ventures
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7h12M7 1l6 6-6 6"/></svg>
+        </a>
+        <a href="#media" class="btn btn-ghost">
+          Watch Latest Interview
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg>
+        </a>
+      </div>
     </div>
-    <div class="hero-eyebrow">Entrepreneur · Founder · Builder</div>
-    <h1 class="hero-name">Luke Oliver<br><em>Rall</em></h1>
-    <p class="hero-sub">21-year-old South African entrepreneur building companies that transform how businesses grow in the digital age. Durban born. Moving to the USA in 2026.</p>
-    <div class="hero-cta">
-      <a href="#ventures" class="btn btn-red">
-        Explore My Work
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7h12M7 1l6 6-6 6"/></svg>
-      </a>
-      <a href="#connect" class="btn btn-ghost">Get In Touch</a>
+
+    <!-- Profile photo side -->
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-ring">
+        <!-- Replace /images/luke-profile.jpg with your actual profile photo -->
+        <img
+          src="/headshot.jpg"
+          alt="Luke Oliver Rall"
+          class="hero-photo"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        />
+        <div class="hero-photo-fallback">
+          <svg width="60" height="60" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+          <span>Add headshot.jpg<br>to /public/</span>
+        </div>
+      </div>
+      <div class="hero-photo-glow"></div>
     </div>
   </div>
+
   <div class="scroll-cue">
     <span>Scroll</span>
     <div class="scroll-line"></div>
@@ -26,6 +70,7 @@
 <script is:inline>
   (function () {
     const c = document.getElementById('stars');
+    if (!c) return;
     for (let i = 0; i < 120; i++) {
       const s = document.createElement('div');
       s.className = 'star';
@@ -39,6 +84,7 @@
 
   (function () {
     const c = document.getElementById('particles');
+    if (!c) return;
     for (let i = 0; i < 22; i++) {
       const p = document.createElement('div');
       p.className = 'particle';
@@ -51,6 +97,6 @@
   window.addEventListener('scroll', () => {
     if (scrollY > innerHeight) return;
     const name = document.querySelector('.hero-name');
-    if (name) name.style.transform = `translateY(${scrollY * 0.07}px)`;
+    if (name) name.style.transform = `translateY(${scrollY * 0.05}px)`;
   }, { passive: true });
 </script>
