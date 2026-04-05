@@ -653,10 +653,8 @@ body {
   padding: 0 0 3rem;
 }
 .interview-carousel-outer {
-  overflow-x: clip;
-  overflow-y: visible;
-  padding: 2.5rem 0 5rem;
   position: relative;
+  padding: 2.5rem 0 5rem;
 }
 .interview-carousel-outer::before,
 .interview-carousel-outer::after {
