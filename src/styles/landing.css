@@ -653,8 +653,8 @@ body {
   padding: 0 0 3rem;
 }
 .interview-carousel-outer {
-  overflow: hidden;
-  padding: 2.5rem 0;
+  overflow-x: clip;
+  padding: 2.5rem 0 4rem;
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%);
 }
