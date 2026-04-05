@@ -654,9 +654,26 @@ body {
 }
 .interview-carousel-outer {
   overflow-x: clip;
-  padding: 2.5rem 0 4rem;
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%);
+  overflow-y: visible;
+  padding: 2.5rem 0 5rem;
+  position: relative;
+}
+.interview-carousel-outer::before,
+.interview-carousel-outer::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 14%;
+  z-index: 2;
+  pointer-events: none;
+}
+.interview-carousel-outer::before {
+  left: 0;
+  background: linear-gradient(to right, #18183a 0%, rgba(24,24,58,0) 100%);
+}
+.interview-carousel-outer::after {
+  right: 0;
+  background: linear-gradient(to left, #18183a 0%, rgba(24,24,58,0) 100%);
 }
 .interview-track {
   display: flex;
@@ -859,10 +876,8 @@ body {
 /* ========== NEW COMPONENT RESPONSIVE RULES ========== */
 @media (max-width: 960px) {
   .interview-card { width: clamp(340px, 76vw, 600px); }
-  .interview-carousel-outer {
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-  }
+  .interview-carousel-outer::before,
+  .interview-carousel-outer::after { width: 8%; }
   .stats-strip-grid { flex-wrap: wrap; }
   .stats-strip-divider { display: none; }
   .stats-strip-item { flex: 1 1 calc(50% - 1rem); }
@@ -871,10 +886,8 @@ body {
 @media (max-width: 700px) {
   .interview-card { width: clamp(280px, 82vw, 480px); border-radius: 14px; }
   .interview-card-meta { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-  .interview-carousel-outer {
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-  }
+  .interview-carousel-outer::before,
+  .interview-carousel-outer::after { width: 5%; }
   .stats-strip { padding: 3.5rem 1.5rem; }
   .stats-strip-item { flex: 1 1 calc(50% - 1rem); padding: 0.8rem; }
   .stats-strip-num { font-size: 2.2rem; }
